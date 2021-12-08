@@ -12,6 +12,7 @@ def connect():
         # pyautogui.click(x/2,y/2) # for mac
         pyautogui.click(x,y)
         time.sleep(0.5)
+        antiBot()
         connect()
     return    
     
@@ -59,7 +60,7 @@ def hunt():
     if find is not None:
         x, y = pyautogui.center(find)
         pyautogui.click(x,y)
-        time.sleep(0.5)
+        # time.sleep(0.05)
         hunt()
     return   
 
@@ -69,7 +70,7 @@ def back():
     if find is not None:
         x, y = pyautogui.center(find)
         pyautogui.click(x,y)
-        time.sleep(0.2)
+        # time.sleep(0.05)
         back()
     return
 
@@ -130,24 +131,52 @@ def new_map():
         new_map()
     return
 
+def antiBot():
+    print("anti bot")
+    find = pyautogui.locateOnScreen('images/anti-bot2.png', confidence=0.5)
+    if find is not None:
+        x, y = pyautogui.center(find)
+        drag = pyautogui.locateOnScreen('images/drag-btn.png', confidence=0.8)
+        x1, y1 = pyautogui.center(drag)
+        pyautogui.click(x1,y1)
+        pyautogui.dragTo(x+5, y+53, duration=3, button='left')
+        # pyautogui.mouseDown()
+        # pyautogui.mouseUp(x, y+53)
+        # pyautogui.dragTo(x, y+53, button='left')
+        # time.sleep(0.2)
+        # new_map()
+    return
+
 def daily():
     print("daily")
     now = datetime.now()
     current_minute = now.strftime("%M")
-    if current_minute == '00' or current_minute == '20' or current_minute == '40':
+    if current_minute == '00' or current_minute == '30':
         back()
         hero()
         drag()
         work()
     return    
 
+
+def reEnter():
+    now = datetime.now()
+    current_minute = int(now.strftime("%M"))
+    if current_minute % 4 == 0:
+        back()
+        hunt()
+    time.sleep(60)
+    return
+
 while 1:
     print("start...")
-    connect()
-    metamask()
-    error()
-    daily()
-    hunt()
+    # antiBot()
+    # connect()
+    # metamask()
+    # error()
+    # daily()
+    # hunt()
+    reEnter()
     new_map()
     print("end...")
-    time.sleep(1)
+    # time.sleep(1)
