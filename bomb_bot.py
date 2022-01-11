@@ -9,38 +9,19 @@ def connect():
     if find is not None:
         print("found connect")
         x, y = pyautogui.center(find)
-        # pyautogui.click(x/2,y/2) # for mac
-        pyautogui.click(x,y)
-        time.sleep(0.5)
-        antiBot()
+        pyautogui.click(x/2,y/2) # for mac
+        # pyautogui.click(x,y)
+        time.sleep(3)
+        sign = pyautogui.locateOnScreen('images/sign.png', confidence=0.7)
+        if sign is not None:
+            x, y = pyautogui.center(sign)
+            # pyautogui.doubleClick(x,y)
+            pyautogui.doubleClick(x/2,y/2) 
+            # time.sleep(1)
+            # metamask()
         connect()
     return    
     
-def metamask():
-    find1 = pyautogui.locateOnScreen('./images/metamask1.png')
-    find2 = pyautogui.locateOnScreen('./images/metamask2.png')
-    if find1 is not None:
-        x, y = pyautogui.center(find1)
-        pyautogui.click(x,y)
-        time.sleep(3)
-        sign = pyautogui.locateOnScreen('images/sign.png', confidence=0.7)
-        if sign is not None:
-            x, y = pyautogui.center(sign)
-            pyautogui.doubleClick(x,y)
-            time.sleep(1)
-        metamask()
-    if find2 is not None:
-        x, y = pyautogui.center(find2)
-        pyautogui.click(x,y)
-        time.sleep(3)
-        sign = pyautogui.locateOnScreen('images/sign.png', confidence=0.7)
-        if sign is not None:
-            x, y = pyautogui.center(sign)
-            pyautogui.doubleClick(x,y)
-            time.sleep(1)
-        metamask()
-    return    
-
 def error():
     find = pyautogui.locateOnScreen('images/error.png', confidence=0.9)
     if find is not None:
@@ -59,8 +40,8 @@ def hunt():
     find = pyautogui.locateOnScreen('images/hunt.png', confidence=0.8)
     if find is not None:
         x, y = pyautogui.center(find)
-        pyautogui.click(x,y)
-        # time.sleep(0.05)
+        pyautogui.click(x/2,y/2)
+        time.sleep(0.5)
         hunt()
     return   
 
@@ -69,8 +50,8 @@ def back():
     find = pyautogui.locateOnScreen('images/back.png', confidence=0.8)
     if find is not None:
         x, y = pyautogui.center(find)
-        pyautogui.click(x,y)
-        # time.sleep(0.05)
+        pyautogui.click(x/2,y/2)
+        time.sleep(0.2)
         back()
     return
 
@@ -81,9 +62,9 @@ def drag():
     if (rim) is not None:
         # print("drag")
         x2, y2 =  pyautogui.center(rim) 
-        pyautogui.click(x2,y2-50)
+        pyautogui.click(x2/2,(y2/2)-50)
         time.sleep(0.5)
-        pyautogui.dragTo(x2, (y2) - 400,duration=2, button='left') 
+        pyautogui.dragTo(x2/2, (y2/2) - 800,duration=2, button='left') 
         drag()
     return
 
@@ -93,32 +74,34 @@ def hero():
     find = pyautogui.locateOnScreen('images/hero.png', confidence=0.7)
     if find is not None:
         x, y = pyautogui.center(find)
-        pyautogui.click(x,y)
+        pyautogui.click(x/2,y/2)
         time.sleep(0.8)
         hero()
     return
 
 def work():
     print("work")
-    find = pyautogui.locateOnScreen('images/work2.png', confidence=0.9)
+    find = pyautogui.locateOnScreen('images/work.png', confidence=0.9)
     if find is not None :
         x, y = pyautogui.center(find)
-        pyautogui.click(x-10,y)
+        pyautogui.click((x/2)-10,y/2)
         # time.sleep(0.2)
         work()
     else:
+        # time.sleep(3)
         close = pyautogui.locateOnScreen('images/close.png', confidence=0.8)
         if close is not None :
             x1, y1 = pyautogui.center(close)
-            pyautogui.doubleClick(x1,y1)
+            pyautogui.doubleClick(x1/2,y1/2)
             work()
         hunt = pyautogui.locateOnScreen('images/hunt.png', confidence=0.7)
         if hunt is not None :
             x2, y2 = pyautogui.center(hunt)
-            pyautogui.doubleClick(x2,y2)
+            pyautogui.doubleClick(x2/2,y2/2)
             work()
         # if close is not None and hunt is not None:
         #     return
+    time.sleep(60)
     return
 
 def new_map():
@@ -126,57 +109,44 @@ def new_map():
     find = pyautogui.locateOnScreen('images/new_map.png', confidence=0.8)
     if find is not None:
         x, y = pyautogui.center(find)
-        pyautogui.click(x,y)
+        pyautogui.click(x/2,y/2)
         time.sleep(0.2)
         new_map()
     return
 
-def antiBot():
-    print("anti bot")
-    find = pyautogui.locateOnScreen('images/anti-bot2.png', confidence=0.5)
-    if find is not None:
-        x, y = pyautogui.center(find)
-        drag = pyautogui.locateOnScreen('images/drag-btn.png', confidence=0.8)
-        x1, y1 = pyautogui.center(drag)
-        pyautogui.click(x1,y1)
-        pyautogui.dragTo(x+5, y+53, duration=3, button='left')
-        # pyautogui.mouseDown()
-        # pyautogui.mouseUp(x, y+53)
-        # pyautogui.dragTo(x, y+53, button='left')
-        # time.sleep(0.2)
-        # new_map()
-    return
+def reEnter():
+    print("reEnter")
+    now = datetime.now()
+    current_minute = int(now.strftime("%M"))
+    if current_minute % 3 == 0:
+        back()
+        hunt()
+        time.sleep(60)
+    return    
 
 def daily():
     print("daily")
-    now = datetime.now()
-    current_minute = now.strftime("%M")
-    if current_minute == '00' or current_minute == '30':
-        back()
-        hero()
-        drag()
-        work()
+    back()
+    hero()
+    drag()
+    work()
     return    
 
-
-def reEnter():
-    now = datetime.now()
-    current_minute = int(now.strftime("%M"))
-    if current_minute % 4 == 0:
-        back()
-        hunt()
-    time.sleep(60)
-    return
+# work time 
+work_time = 50
+start = time.time()
 
 while 1:
     print("start...")
-    # antiBot()
-    # connect()
-    # metamask()
-    # error()
-    # daily()
-    # hunt()
+    second = int( time.time() - start)
+    print("time >>>>>>>> ", second)
+    if(second >= (work_time * 60)):
+        daily()
+        start = time.time()
+    connect()
+    error()
     reEnter()
+    hunt()
     new_map()
     print("end...")
-    # time.sleep(1)
+    time.sleep(5)
